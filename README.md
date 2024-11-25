@@ -31,6 +31,9 @@ Easy Note is a simple and awesome note app. It gives you a quick and easy notepa
 
 # App Images
 
+![1732535566760_original-a87e57cd-178b-4a43-9ad5-4a96d973dc9f](https://github.com/user-attachments/assets/46171d37-aaa0-4087-86c7-b997eaeebc56)
+
+
 ![1](https://github.com/user-attachments/assets/e81224c5-32ad-49de-b019-0cdb1003829f)
 ![2](https://github.com/user-attachments/assets/7e4b48cb-6bb9-45f0-a001-be647c6c23aa)
 ![3](https://github.com/user-attachments/assets/560311d3-e1d7-43ae-88a5-9a69a4a75632)
