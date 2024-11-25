@@ -44,14 +44,12 @@ public class OnBoardingScreenActivity extends AppCompatActivity {
                     public boolean onLoadFailed(@Nullable @org.jetbrains.annotations.Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
                         return false;
                     }
-
                     @Override
                     public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
                         resource.setLoopCount(1);
                         return false;
                     }
-                })
-                .into(binding.splashIcon);
+                }).into(binding.splashIcon);
 
         // go to main activity
         binding.getStart.setOnClickListener(v -> {

@@ -42,14 +42,16 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
-            <com.github.maxwell.nc.library.StarRatingView
+            <RatingBar
+                style="?android:attr/ratingBarStyleIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:isIndicator="false"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="17dp"
-                android:orientation="horizontal"
-                app:star_count="5"
-                app:star_size="34dp" />
+                android:theme="@style/MyRatingBar" />
+
+
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/submit_rating"

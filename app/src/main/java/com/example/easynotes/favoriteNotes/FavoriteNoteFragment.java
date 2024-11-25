@@ -19,11 +19,13 @@ import com.example.easynotes.dataClass.Notes;
 import com.example.easynotes.databinding.FragmentFavoriteNoteBinding;
 import com.example.easynotes.interfaces.NotesClickListener;
 import com.example.easynotes.sqlDB.SqlHelper;
+import com.example.easynotes.utils.MyHelper;
 import com.example.easynotes.viewModel.NotesViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.rejowan.cutetoast.CuteToast;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -35,6 +37,7 @@ public class FavoriteNoteFragment extends Fragment implements NotesClickListener
     ArrayList<Notes> notesList;
     SqlHelper sqlHelper;
     NotesViewModel notesViewModel;
+    MyHelper myHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,21 +52,10 @@ public class FavoriteNoteFragment extends Fragment implements NotesClickListener
         // initialize the notesList
         notesList = new ArrayList<>();
 
-        // fetch notes
-        fetchNotes();
-
-        return binding.getRoot();
-    }
-
-    // filter all Favorite notes
-    public static Predicate<Notes> filteringAll(boolean isFavorite) {
-        return p -> (p.isFavorite() && isFavorite);
-    }
-
-
-    private void fetchNotes() {
         // fetch notes from sqlHelper class
         notesList = sqlHelper.getNotes();
+
+        myHelper = new MyHelper(getContext());
 
         binding.emptyList.setVisibility(View.GONE);
         binding.recyclerView.setVisibility(View.VISIBLE);
@@ -77,14 +69,35 @@ public class FavoriteNoteFragment extends Fragment implements NotesClickListener
             Glide.with(this).load(R.drawable.empty_list).into(binding.emptyList);
         }
         // initialize the favoriteNotesAdapter
-        favoriteNotesAdapter = new FavoriteNotesAdapter(getContext(), (ArrayList<Notes>) listOfFilteredNotes, this);
+        favoriteNotesAdapter = new FavoriteNotesAdapter(getContext(), myHelper.reverseListOrder((ArrayList<Notes>) listOfFilteredNotes), this);
 
-        // for refresh the adapter
-        favoriteNotesAdapter.notifyDataSetChanged();
         // set recyclerview layout example - linear or grid
         binding.recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         // set data in adapter
         binding.recyclerView.setAdapter(favoriteNotesAdapter);
+
+
+        return binding.getRoot();
+    }
+
+    // filter all Favorite notes
+    public static Predicate<Notes> filteringAll(boolean isFavorite) {
+        return p -> (p.isFavorite() && isFavorite);
+    }
+
+    private void fetchNotes() {
+        // fetch notes from sqlHelper class
+        notesList = sqlHelper.getNotes();
+
+        List<Notes> listOfFilteredNotes = notesList.stream().filter(filteringAll(true)).collect(Collectors.toList());
+        if (listOfFilteredNotes.isEmpty()) {
+            binding.emptyList.setVisibility(View.VISIBLE);
+            binding.recyclerView.setVisibility(View.GONE);
+            Glide.with(this).load(R.drawable.empty_list).into(binding.emptyList);
+        }else{
+            favoriteNotesAdapter.updateData(myHelper.reverseListOrder((ArrayList<Notes>) listOfFilteredNotes));
+            favoriteNotesAdapter.notifyDataSetChanged();
+        }
 
     }
 

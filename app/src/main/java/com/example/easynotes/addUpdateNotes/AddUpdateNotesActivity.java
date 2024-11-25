@@ -103,6 +103,7 @@ public class AddUpdateNotesActivity extends AppCompatActivity {
                         // delete note method from sqlHelper class
                         sqlHelper.deleteNote(noteId);
                         CuteToast.ct(AddUpdateNotesActivity.this, "Note Delete Successful.", CuteToast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
+
                         finish();
                     }
                 })

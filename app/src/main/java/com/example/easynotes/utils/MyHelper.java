@@ -5,7 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.github.maxwell.nc.library.BuildConfig;
+import com.example.easynotes.dataClass.Notes;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
 
 public class MyHelper {
 
@@ -13,6 +17,19 @@ public class MyHelper {
 
     public MyHelper(Context context) {
         this.context = context;
+    }
+
+
+
+    // reverse string for show last added value to show in first
+    public ArrayList<Notes> reverseListOrder(ArrayList<Notes> notes) {
+        Iterator<Notes> it = notes.iterator();
+        ArrayList<Notes> destination = new ArrayList<>();
+        while (it.hasNext()) {
+            destination.add(0, it.next());
+            it.remove();
+        }
+        return destination;
     }
 
     // rate us app
@@ -35,7 +52,7 @@ public class MyHelper {
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Easy Notes");
             String shareMessage = "\nLet me recommend you this application for write the notes easily.\n\n";
-            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + context.getPackageName() + "\n\n";
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
             context.startActivity(Intent.createChooser(shareIntent, "choose one"));
         } catch (Exception e) {

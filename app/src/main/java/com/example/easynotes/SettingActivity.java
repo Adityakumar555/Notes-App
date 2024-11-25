@@ -3,6 +3,8 @@ package com.example.easynotes;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -14,7 +16,6 @@ import com.example.easynotes.databinding.ActivitySettingBinding;
 import com.example.easynotes.utils.MyHelper;
 import com.example.easynotes.utils.RatingDialogFragment;
 import com.example.easynotes.viewModel.NotesViewModel;
-import com.github.maxwell.nc.library.BuildConfig;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class SettingActivity extends AppCompatActivity {
@@ -139,14 +140,20 @@ public class SettingActivity extends AppCompatActivity {
         });
 
         // app version
-        appVersion();
+        try {
+            appVersion();
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
     // get current app version
-    private void appVersion() {
-        String versionName = BuildConfig.VERSION_NAME;
-        binding.appVersion.setText("Version : " + versionName);
+    private void appVersion() throws PackageManager.NameNotFoundException {
+        PackageManager manager = getPackageManager();
+        PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
+        String version = info.versionName;
+        binding.appVersion.setText("Version : " + version);
     }
 
     // restart the app

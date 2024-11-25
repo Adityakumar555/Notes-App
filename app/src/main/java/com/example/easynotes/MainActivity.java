@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.easynotes.databinding.ActivityMainBinding;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
     NotesViewModel notesViewModel;
     boolean isDarkModeOn;
+    TextView selectedTextView;
+    TextView nonSelectedTab1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,10 +94,12 @@ public class MainActivity extends AppCompatActivity {
 
     // show fragment according user select
     private void selectedTab(int tabNumber) {
-        TextView selectedTextView;
-        TextView nonSelectedTab1;
 
-        Typeface font = getResources().getFont(R.font.jua_regular);
+
+        Typeface font = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            font = getResources().getFont(R.font.jua_regular);
+        }
 
         if (tabNumber == 1) {
             selectedTextView = binding.noteTab;
@@ -121,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             binding.favoriteNotesTab.startAnimation(translateAnimation);
         }
 
+        Typeface finalFont = font;
         translateAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -130,13 +136,13 @@ public class MainActivity extends AppCompatActivity {
             public void onAnimationEnd(Animation animation) {
                 // Apply styles to selected tab
                 selectedTextView.setBackgroundResource(R.drawable.tabs_item_selector);
-                selectedTextView.setTypeface(font, Typeface.BOLD);
+                selectedTextView.setTypeface(finalFont, Typeface.BOLD);
                 selectedTextView.setTextColor(getResources().getColor(R.color.white));
 
                 // Reset styles for non-selected tab
                 nonSelectedTab1.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                 nonSelectedTab1.setTextColor(getResources().getColor(R.color.black));
-                nonSelectedTab1.setTypeface(font, Typeface.NORMAL);
+                nonSelectedTab1.setTypeface(finalFont, Typeface.NORMAL);
             }
 
             @Override
@@ -149,8 +155,8 @@ public class MainActivity extends AppCompatActivity {
 
     // replace the fragment
     private void replaceFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment, null)
                 .commit();
     }

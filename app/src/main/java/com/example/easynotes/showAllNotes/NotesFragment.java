@@ -18,12 +18,14 @@ import com.example.easynotes.dataClass.Notes;
 import com.example.easynotes.databinding.FragmentNotesBinding;
 import com.example.easynotes.interfaces.NotesClickListener;
 import com.example.easynotes.sqlDB.SqlHelper;
+import com.example.easynotes.utils.MyHelper;
 import com.example.easynotes.utils.RatingDialogFragment;
 import com.example.easynotes.viewModel.NotesViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.rejowan.cutetoast.CuteToast;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class NotesFragment extends Fragment implements NotesClickListener {
@@ -35,6 +37,7 @@ public class NotesFragment extends Fragment implements NotesClickListener {
     SqlHelper sqlHelper;
     NotesViewModel notesViewModel;
     int count = 0;
+    MyHelper myHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,7 +55,16 @@ public class NotesFragment extends Fragment implements NotesClickListener {
         notesViewModel = new ViewModelProvider(requireActivity()).get(NotesViewModel.class);
 
         // fetch notes to update ui
-        fetchUser();
+        notesList = sqlHelper.getNotes();
+
+        myHelper = new MyHelper(getContext());
+
+        // initialize the notesAdapter
+        notesAdapter = new NotesAdapter(getContext(),myHelper.reverseListOrder(notesList), this);
+        // set recyclerview layout example - linear or grid
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+        // set data in adapter
+        binding.recyclerView.setAdapter(notesAdapter);
 
         return binding.getRoot();
 
@@ -62,12 +74,8 @@ public class NotesFragment extends Fragment implements NotesClickListener {
     private void fetchUser() {
         // get all notes
         notesList = sqlHelper.getNotes();
-        // initialize the notesAdapter
-        notesAdapter = new NotesAdapter(getContext(), notesList, this);
-        // set recyclerview layout example - linear or grid
-        binding.recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
-        // set data in adapter
-        binding.recyclerView.setAdapter(notesAdapter);
+        notesAdapter.updateData(myHelper.reverseListOrder(notesList));
+        notesAdapter.notifyDataSetChanged();
     }
 
     @Override

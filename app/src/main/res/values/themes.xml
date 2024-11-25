@@ -9,5 +9,14 @@
     </style>
 
 
+    <style name="MyRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:minHeight">16dp</item>
+        <item name="android:maxHeight">16dp</item>
+        <item name="colorControlNormal">@color/star_bg_color</item>
+        <item name="colorControlActivated">#FF9800</item>
+    </style>
+
+
     <style name="Theme.EasyNotes" parent="Base.Theme.EasyNotes" />
 </resources>
+

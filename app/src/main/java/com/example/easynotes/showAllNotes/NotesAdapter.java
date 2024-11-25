@@ -18,6 +18,7 @@ import com.example.easynotes.dataClass.Notes;
 import com.example.easynotes.interfaces.NotesClickListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
@@ -33,6 +34,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         this.clickListener = clickListener;
     }
 
+    public void updateData(ArrayList<Notes> notes) {
+        notesList.clear();
+        notesList.addAll(notes);
+        notifyDataSetChanged();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView add_image;
@@ -70,6 +76,16 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return new ViewHolder(view);
     }
 
+    // reverse string for show last added value to show in first
+    private ArrayList<Notes> reverseListOrder(ArrayList<Notes> notes) {
+        Iterator<Notes> it = notes.iterator();
+        ArrayList<Notes> destination = new ArrayList<>();
+        while (it.hasNext()) {
+            destination.add(0, it.next());
+            it.remove();
+        }
+        return destination;
+    }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // If the position is 0 set the add note item
@@ -169,7 +185,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     @Override
     public int getItemViewType(int position) {
 
-        if (position == 0) return 0;
+        if (position == 0)
+            return 0;
         else {
             return 1;
         }

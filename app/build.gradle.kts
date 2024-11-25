@@ -47,6 +47,5 @@ dependencies {
     implementation(libs.glide)
 
     implementation ("com.github.ahmmedrejowan.CuteToast:CuteToast:1.2")
-    implementation("com.github.maxwell-nc:StarRatingView:1.0")
 
 }

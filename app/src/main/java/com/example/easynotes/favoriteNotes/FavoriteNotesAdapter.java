@@ -32,6 +32,11 @@ public class FavoriteNotesAdapter extends RecyclerView.Adapter<FavoriteNotesAdap
         this.clickListener = clickListener;
     }
 
+    void updateData(ArrayList<Notes> newNotesList){
+        notesList.clear();
+        notesList.addAll(newNotesList);
+        notifyDataSetChanged();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView add_image;
