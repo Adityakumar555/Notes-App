@@ -12,13 +12,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.example.easynotes.addUpdateNotes.AddUpdateNotesActivity;
-import com.example.easynotes.viewModel.NotesViewModel;
+import com.bumptech.glide.Glide;
 import com.example.easynotes.R;
-import com.example.easynotes.databinding.FragmentFavoriteNoteBinding;
+import com.example.easynotes.addUpdateNotes.AddUpdateNotesActivity;
 import com.example.easynotes.dataClass.Notes;
+import com.example.easynotes.databinding.FragmentFavoriteNoteBinding;
 import com.example.easynotes.interfaces.NotesClickListener;
 import com.example.easynotes.sqlDB.SqlHelper;
+import com.example.easynotes.viewModel.NotesViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.rejowan.cutetoast.CuteToast;
 
@@ -63,16 +64,28 @@ public class FavoriteNoteFragment extends Fragment implements NotesClickListener
     private void fetchNotes() {
         // fetch notes from sqlHelper class
         notesList = sqlHelper.getNotes();
+
+        binding.emptyList.setVisibility(View.GONE);
+        binding.recyclerView.setVisibility(View.VISIBLE);
+
         // filter all Favorite notes and save in a new list
         List<Notes> listOfFilteredNotes = notesList.stream().filter(filteringAll(true)).collect(Collectors.toList());
+        // check if list is empty then show empty list image
+        if (listOfFilteredNotes.isEmpty()) {
+            binding.emptyList.setVisibility(View.VISIBLE);
+            binding.recyclerView.setVisibility(View.GONE);
+            Glide.with(this).load(R.drawable.empty_list).into(binding.emptyList);
+        }
         // initialize the favoriteNotesAdapter
         favoriteNotesAdapter = new FavoriteNotesAdapter(getContext(), (ArrayList<Notes>) listOfFilteredNotes, this);
+
         // for refresh the adapter
         favoriteNotesAdapter.notifyDataSetChanged();
         // set recyclerview layout example - linear or grid
         binding.recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         // set data in adapter
         binding.recyclerView.setAdapter(favoriteNotesAdapter);
+
     }
 
     @Override
@@ -88,7 +101,6 @@ public class FavoriteNoteFragment extends Fragment implements NotesClickListener
             favoriteNotesAdapter.notifyDataSetChanged();
         });
     }
-
 
     // update the note from the favorite fragment
     @Override
@@ -137,5 +149,6 @@ public class FavoriteNoteFragment extends Fragment implements NotesClickListener
     }
 
     @Override
-    public void addNoteClick() {}
+    public void addNoteClick() {
+    }
 }

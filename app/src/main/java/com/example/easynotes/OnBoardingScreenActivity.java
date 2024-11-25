@@ -21,6 +21,7 @@ public class OnBoardingScreenActivity extends AppCompatActivity {
 
     ActivityOnBoardingScreenBinding binding;
     SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +29,10 @@ public class OnBoardingScreenActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         // sharedPreferences for onboarding screen
-         sharedPreferences = getSharedPreferences("NOTES",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("NOTES", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-       // Glide.with(SplashScreenActivity.this).load(R.drawable.note_splash_screen).into(binding.splashIcon);
+        // Glide.with(SplashScreenActivity.this).load(R.drawable.note_splash_screen).into(binding.splashIcon);
 
         // show note gif in splash onboarding
         Glide.with(this)
@@ -52,26 +53,22 @@ public class OnBoardingScreenActivity extends AppCompatActivity {
                 })
                 .into(binding.splashIcon);
 
-
         // go to main activity
         binding.getStart.setOnClickListener(v -> {
             Intent intent = new Intent(OnBoardingScreenActivity.this, MainActivity.class);
             startActivity(intent);
             // save status in sharedprefrence
-            editor.putBoolean("USER_ONBOARD",true);
+            editor.putBoolean("USER_ONBOARD", true);
             editor.apply();
             finish();
         });
-
-
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         // skip this activity if true
-        if (sharedPreferences.getBoolean("USER_ONBOARD",false)){
+        if (sharedPreferences.getBoolean("USER_ONBOARD", false)) {
             Intent intent = new Intent(OnBoardingScreenActivity.this, MainActivity.class);
             startActivity(intent);
             finish();

@@ -94,8 +94,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 clickListener.longPressClickForDeleteNote(notes.getId());
                 return true;
             });
-
-
         }
     }
 

@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.easynotes.R;
 import com.example.easynotes.addUpdateNotes.AddUpdateNotesActivity;
-import com.example.easynotes.databinding.FragmentNotesBinding;
 import com.example.easynotes.dataClass.Notes;
+import com.example.easynotes.databinding.FragmentNotesBinding;
 import com.example.easynotes.interfaces.NotesClickListener;
 import com.example.easynotes.sqlDB.SqlHelper;
 import com.example.easynotes.utils.RatingDialogFragment;
@@ -89,7 +89,6 @@ public class NotesFragment extends Fragment implements NotesClickListener {
             dialogFragment.show(requireActivity().getSupportFragmentManager(), "My Dialog");
             count = 0;
         }
-
 
     }
 

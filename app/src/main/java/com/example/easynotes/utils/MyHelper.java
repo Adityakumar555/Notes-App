@@ -28,7 +28,6 @@ public class MyHelper {
         }
     }
 
-
     // share app
     public void shareApp() {
         try {
@@ -44,9 +43,9 @@ public class MyHelper {
         }
     }
 
-     // follow on instagram
+    // follow on instagram
     public void goToInstagram() {
-        Uri uri = Uri.parse("http://instagram.com/_u/aditya_kumar416");
+        Uri uri = Uri.parse("http://instagram.com/_u/aditya_kumar4");
         Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
 
         likeIng.setPackage("com.instagram.android");
@@ -55,17 +54,14 @@ public class MyHelper {
             context.startActivity(likeIng);
         } catch (ActivityNotFoundException e) {
             context.startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://instagram.com/aditya_kumar416")));
+                    Uri.parse("http://instagram.com/aditya_kumar4")));
         }
-
     }
-
 
     // contact us
     public void dialContactPhone(final String phoneNumber) {
         context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
     }
-
 
 
     // get months
@@ -99,7 +95,6 @@ public class MyHelper {
                 return null;
         }
     }
-
 
 
 }

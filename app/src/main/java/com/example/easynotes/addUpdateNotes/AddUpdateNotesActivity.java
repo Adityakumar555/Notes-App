@@ -9,8 +9,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easynotes.R;
-import com.example.easynotes.databinding.ActivityAddNotesBinding;
 import com.example.easynotes.dataClass.Notes;
+import com.example.easynotes.databinding.ActivityAddNotesBinding;
 import com.example.easynotes.sqlDB.SqlHelper;
 import com.example.easynotes.utils.MyHelper;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -36,7 +36,6 @@ public class AddUpdateNotesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAddNotesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
 
         // initialize the MyHelper class to get method
         myHelper = new MyHelper(this);
@@ -69,7 +68,7 @@ public class AddUpdateNotesActivity extends AppCompatActivity {
         }
 
 
-            // here we are check that notes key available or not in intent
+        // here we are check that notes key available or not in intent
         if (intent.hasExtra("notes")) {
             // update notes
             notes = intent.getParcelableExtra("notes");
@@ -84,7 +83,6 @@ public class AddUpdateNotesActivity extends AppCompatActivity {
         // delete note on delete btn click
         binding.deleteNoteIcon.setOnClickListener(v -> {
             deleteNote();
-
         });
 
         // go back on backIcon click
@@ -92,9 +90,7 @@ public class AddUpdateNotesActivity extends AppCompatActivity {
             finish();
         });
 
-
     }
-
 
     // show delete dialog box for notify user
     private void deleteNote() {
@@ -141,7 +137,6 @@ public class AddUpdateNotesActivity extends AppCompatActivity {
                 binding.favoriteNoteIcon.setImageResource(R.drawable.star);
                 isFavoriteNote = true;
                 sqlHelper.setFavoriteNote("true", notes.getId());
-
             }
 
         });

@@ -6,6 +6,12 @@
     android:background="@color/backgroundColor"
     tools:context=".favoriteNotes.FavoriteNoteFragment">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/emptyList"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

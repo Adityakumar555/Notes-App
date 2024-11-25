@@ -40,27 +40,24 @@ public class MainActivity extends AppCompatActivity {
         // sharedPreferences for current theme
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         // get day and night mode theme
-         isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", true);
+        isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", true);
 
         // if isDarkModeOn is true
-        if (isDarkModeOn){
-             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-         }
+        if (isDarkModeOn) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
         // if isDarkModeOn is false
-         else {
-             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-         }
+        else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
 
-
-
-         // open setting on btn click
+        // open setting on btn click
         binding.setting.setOnClickListener(v -> {
             Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
         });
 
-
-         // first show the NotesFragment
+        // first show the NotesFragment
         replaceFragment(new NotesFragment());
 
         // when user click on note tab
@@ -80,10 +77,14 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 notesViewModel.setSearchNoteText(s);
             }
+
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
     }
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAnimationStart(Animation animation) {
             }
+
             @Override
             public void onAnimationEnd(Animation animation) {
                 // Apply styles to selected tab

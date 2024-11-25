@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.easynotes.viewModel.NotesViewModel;
 import com.example.easynotes.R;
 import com.example.easynotes.databinding.FragmentRatingDialogBinding;
+import com.example.easynotes.viewModel.NotesViewModel;
 import com.rejowan.cutetoast.CuteToast;
 
 
@@ -23,6 +23,7 @@ public class RatingDialogFragment extends DialogFragment {
     FragmentRatingDialogBinding binding;
     NotesViewModel notesViewModel;
     MyHelper myHelper;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -78,7 +78,6 @@ public class SettingActivity extends AppCompatActivity {
             finish();
         });
 
-
         // clearAll shared preference data on btn click
         binding.clearAllData.setOnClickListener(v -> {
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
@@ -87,7 +86,7 @@ public class SettingActivity extends AppCompatActivity {
                     .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            SharedPreferences sharedPreferences1 = getSharedPreferences("NOTES",MODE_PRIVATE);
+                            SharedPreferences sharedPreferences1 = getSharedPreferences("NOTES", MODE_PRIVATE);
                             SharedPreferences.Editor editor1 = sharedPreferences1.edit();
                             editor1.clear();
                             editor1.apply();
@@ -116,10 +115,7 @@ public class SettingActivity extends AppCompatActivity {
                 }
             });
             dialog.show();
-
         });
-
-
 
         // contact us
         binding.contacts.setOnClickListener(v -> {
@@ -154,12 +150,11 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     // restart the app
-    public void restart(){
+    public void restart() {
         Intent intent = new Intent(this, OnBoardingScreenActivity.class);
         this.startActivity(intent);
         this.finishAffinity();
     }
-
 
 }
 

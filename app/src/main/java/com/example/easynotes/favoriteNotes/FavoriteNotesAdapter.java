@@ -82,7 +82,6 @@ public class FavoriteNotesAdapter extends RecyclerView.Adapter<FavoriteNotesAdap
             return true;
         });
 
-
     }
 
     // filter the notes according search text
