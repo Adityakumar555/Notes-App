@@ -1,4 +1,6 @@
 
+![notes-graphics](https://github.com/user-attachments/assets/25424e87-bec9-4c7c-8cf4-594f6b625ac2)
+
 # Easy Notes
 Easy Note is a simple and awesome note app. It gives you a quick and easy notepad editing experience when you write notes. Easy Note is an app that users can use to write down their important notes, it is an app that everyone can use easily, and it is a user friendly app that is easy to understand, Made using Java, xml and SQLite.
 
