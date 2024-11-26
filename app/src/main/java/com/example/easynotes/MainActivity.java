@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment, null)
+                .replace(R.id.fragment_container, fragment)
                 .commit();
     }
 

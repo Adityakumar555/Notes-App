@@ -34,6 +34,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         this.clickListener = clickListener;
     }
 
+    // update the list after change
     public void updateData(ArrayList<Notes> notes) {
         notesList.clear();
         notesList.addAll(notes);

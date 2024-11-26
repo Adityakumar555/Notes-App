@@ -38,7 +38,7 @@ public class OnBoardingScreenActivity extends AppCompatActivity {
         Glide.with(this)
                 .asGif()
                 .load(R.drawable.note_splash_screen)
-                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+               // .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                 .listener(new RequestListener<GifDrawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable @org.jetbrains.annotations.Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {

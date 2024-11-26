@@ -32,6 +32,7 @@ public class FavoriteNotesAdapter extends RecyclerView.Adapter<FavoriteNotesAdap
         this.clickListener = clickListener;
     }
 
+    // update the list after change
     void updateData(ArrayList<Notes> newNotesList){
         notesList.clear();
         notesList.addAll(newNotesList);

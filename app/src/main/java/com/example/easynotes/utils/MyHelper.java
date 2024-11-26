@@ -50,11 +50,9 @@ public class MyHelper {
         try {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Easy Notes");
-            String shareMessage = "\nLet me recommend you this application for write the notes easily.\n\n";
-            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + context.getPackageName() + "\n\n";
+            String shareMessage = "\nEasy Notes\nLet me recommend you this application for write the notes easily.\n\n" + "https://play.google.com/store/apps/details?id=" + context.getPackageName() + "\n\n";
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-            context.startActivity(Intent.createChooser(shareIntent, "choose one"));
+            context.startActivity(Intent.createChooser(shareIntent, "Choose an app to share with"));
         } catch (Exception e) {
             //e.toString();
         }
@@ -76,7 +74,7 @@ public class MyHelper {
     }
 
     // contact us
-    public void dialContactPhone(final String phoneNumber) {
+    public void dialContactPhone(String phoneNumber) {
         context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
     }
 
