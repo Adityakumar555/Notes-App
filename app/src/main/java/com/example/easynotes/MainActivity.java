@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
     // show fragment according user select
     private void selectedTab(int tabNumber) {
 
-
         Typeface font = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             font = getResources().getFont(R.font.jua_regular);
