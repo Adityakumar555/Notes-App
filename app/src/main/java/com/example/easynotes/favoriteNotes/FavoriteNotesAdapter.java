@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.easynotes.R;
 import com.example.easynotes.dataClass.Notes;
 import com.example.easynotes.interfaces.NotesClickListener;
+import com.example.easynotes.utils.MyHelper;
 
 import java.util.ArrayList;
 
@@ -24,19 +24,20 @@ public class FavoriteNotesAdapter extends RecyclerView.Adapter<FavoriteNotesAdap
     private ArrayList<Notes> notesList;
     private ArrayList<Notes> notesFilterList;
     private NotesClickListener clickListener;
+    private MyHelper myHelper;
 
-    public FavoriteNotesAdapter(Context context, ArrayList<Notes> notesList, NotesClickListener clickListener) {
+    public FavoriteNotesAdapter(Context context, ArrayList<Notes> notesList, NotesClickListener clickListener, MyHelper myHelper) {
         this.context = context;
         this.notesList = notesList;
         this.notesFilterList = notesList;
         this.clickListener = clickListener;
+        this.myHelper = myHelper;
     }
 
     // update the list after change
     void updateData(ArrayList<Notes> newNotesList){
         notesList.clear();
         notesList.addAll(newNotesList);
-        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -64,7 +65,7 @@ public class FavoriteNotesAdapter extends RecyclerView.Adapter<FavoriteNotesAdap
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notes_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.notes_item, parent, false);
 
         return new ViewHolder(view);
     }
@@ -75,7 +76,7 @@ public class FavoriteNotesAdapter extends RecyclerView.Adapter<FavoriteNotesAdap
         Notes notes = notesFilterList.get(position);
         holder.title.setText(notes.getTitle());
         holder.note.setText(notes.getNote());
-        holder.date.setText(getMonths(notes.getMonth()) + " " + notes.getDate() + ", " + notes.getYear());
+        holder.date.setText(myHelper.getMonthsWithShortName(notes.getMonth()) + " " + notes.getDate() + ", " + notes.getYear());
 
         // note click for update
         holder.note_card.setOnClickListener(v -> {
@@ -92,9 +93,7 @@ public class FavoriteNotesAdapter extends RecyclerView.Adapter<FavoriteNotesAdap
 
     // filter the notes according search text
     ArrayList<Notes> getFilter(String string){
-
         notesFilterList = new ArrayList<>();
-
         for(Notes notes: notesList){
             if (notes.getTitle().toLowerCase().contains(string.toLowerCase())
                     || notes.getNote().toLowerCase().contains(string.toLowerCase())
@@ -107,38 +106,6 @@ public class FavoriteNotesAdapter extends RecyclerView.Adapter<FavoriteNotesAdap
         return notesFilterList;
     }
 
-
-    // get months from months number
-    String getMonths(String month) {
-        switch (month) {
-            case "1":
-                return "Jan";
-            case "2":
-                return "Fev";
-            case "3":
-                return "Mar";
-            case "4":
-                return "Apr";
-            case "5":
-                return "May";
-            case "6":
-                return "Jun";
-            case "7":
-                return "Jul";
-            case "8":
-                return "Aug";
-            case "9":
-                return "Sep";
-            case "10":
-                return "Oct";
-            case "11":
-                return "Nov";
-            case "12":
-                return "Dec";
-            default:
-                return null;
-        }
-    }
 
     // size of list
     @Override

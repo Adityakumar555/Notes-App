@@ -60,7 +60,7 @@ public class NotesFragment extends Fragment implements NotesClickListener {
         myHelper = new MyHelper(getContext());
 
         // initialize the notesAdapter
-        notesAdapter = new NotesAdapter(getContext(),myHelper.reverseListOrder(notesList), this);
+        notesAdapter = new NotesAdapter(getContext(),myHelper.reverseListOrder(notesList), this,myHelper);
         // set recyclerview layout example - linear or grid
         binding.recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         // set data in adapter
@@ -87,15 +87,14 @@ public class NotesFragment extends Fragment implements NotesClickListener {
         // filter note using search
         // this observe the current search text
         notesViewModel.getSearchNoteText().observe(requireActivity(), c -> {
-            notesAdapter.getFilter(c.toString());
+            notesAdapter.getSearchFilter(c.toString());
             notesAdapter.notifyDataSetChanged();
         });
 
-        // show RatingDialogFragment after 2 notes added
-        if (count == 2) {
+        // show RatingDialogFragment after 3 notes added
+        if (count == 3) {
             RatingDialogFragment dialogFragment = new RatingDialogFragment();
             dialogFragment.show(requireActivity().getSupportFragmentManager(), "My Dialog");
-            count = 0;
         }
 
     }

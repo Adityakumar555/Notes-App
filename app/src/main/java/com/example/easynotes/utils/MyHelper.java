@@ -20,13 +20,12 @@ public class MyHelper {
 
     // filter all Favorite notes
     public ArrayList<Notes> filterAllFavoriteNote(ArrayList<Notes> notesList) {
-        ArrayList<Notes> notesFilterList = new ArrayList<>();
-        for (Notes notes : notesList) {
-            if (notes.isFavorite()) {
-                notesFilterList.add(notes);
+        for (int i = notesList.size() - 1; i >= 0; i--) {
+            if (!notesList.get(i).isFavorite()) {
+                notesList.remove(i);  // Remove the non-favorite note
             }
         }
-        return notesFilterList;
+        return notesList;
     }
 
     // reverse string for show last added value to show in first
@@ -113,6 +112,38 @@ public class MyHelper {
                 return "November";
             case "12":
                 return "December";
+            default:
+                return null;
+        }
+    }
+
+    // get months from months number
+    public String getMonthsWithShortName(String month) {
+        switch (month) {
+            case "1":
+                return "Jan";
+            case "2":
+                return "Fev";
+            case "3":
+                return "Mar";
+            case "4":
+                return "Apr";
+            case "5":
+                return "May";
+            case "6":
+                return "Jun";
+            case "7":
+                return "Jul";
+            case "8":
+                return "Aug";
+            case "9":
+                return "Sep";
+            case "10":
+                return "Oct";
+            case "11":
+                return "Nov";
+            case "12":
+                return "Dec";
             default:
                 return null;
         }

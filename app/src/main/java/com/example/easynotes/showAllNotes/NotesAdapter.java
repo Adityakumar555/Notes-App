@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,9 +15,9 @@ import com.bumptech.glide.Glide;
 import com.example.easynotes.R;
 import com.example.easynotes.dataClass.Notes;
 import com.example.easynotes.interfaces.NotesClickListener;
+import com.example.easynotes.utils.MyHelper;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
@@ -26,19 +25,20 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     private ArrayList<Notes> notesList;
     private ArrayList<Notes> notesFilterList;
     private NotesClickListener clickListener;
+    private MyHelper myHelper;
 
-    public NotesAdapter(Context context, ArrayList<Notes> notesList, NotesClickListener clickListener) {
+    public NotesAdapter(Context context, ArrayList<Notes> notesList, NotesClickListener clickListener, MyHelper myHelper) {
         this.context = context;
         this.notesList = notesList;
         this.notesFilterList = notesList;
         this.clickListener = clickListener;
+        this.myHelper = myHelper;
     }
 
     // update the list after change
     public void updateData(ArrayList<Notes> notes) {
         notesList.clear();
         notesList.addAll(notes);
-        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -68,11 +68,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         View view;
         // if the position is 0 then show the add notes item
         if (viewType == 0) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_note_card_item, parent, false);
+            view = LayoutInflater.from(context).inflate(R.layout.add_note_card_item, parent, false);
         }
         // if the position is greater then 0 then show the all notes item
         else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notes_item, parent, false);
+            view = LayoutInflater.from(context).inflate(R.layout.notes_item, parent, false);
         }
         return new ViewHolder(view);
     }
@@ -92,7 +92,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             Notes notes = notesFilterList.get(position - 1);
             holder.title.setText(notes.getTitle());
             holder.note.setText(notes.getNote());
-            holder.date.setText(getMonths(notes.getMonth()) + " " + notes.getDate() + ", " + notes.getYear());
+            holder.date.setText(myHelper.getMonthsWithShortName(notes.getMonth()) + " " + notes.getDate() + ", " + notes.getYear());
 
             holder.note_card.setOnClickListener(v -> {
                 clickListener.updateNote(notes);
@@ -106,10 +106,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     }
 
 
-    ArrayList<Notes> getFilter(String string){
-
+    ArrayList<Notes> getSearchFilter(String string){
          notesFilterList = new ArrayList<>();
-
          for(Notes notes: notesList){
              if (notes.getTitle().toLowerCase().contains(string.toLowerCase())
                      || notes.getNote().toLowerCase().contains(string.toLowerCase())
@@ -123,36 +121,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     }
 
 
-    String getMonths(String month) {
-        switch (month) {
-            case "1":
-                return "Jan";
-            case "2":
-                return "Fev";
-            case "3":
-                return "Mar";
-            case "4":
-                return "Apr";
-            case "5":
-                return "May";
-            case "6":
-                return "Jun";
-            case "7":
-                return "Jul";
-            case "8":
-                return "Aug";
-            case "9":
-                return "Sep";
-            case "10":
-                return "Oct";
-            case "11":
-                return "Nov";
-            case "12":
-                return "Dec";
-            default:
-                return null;
-        }
-    }
 
     @Override
     public int getItemCount() {

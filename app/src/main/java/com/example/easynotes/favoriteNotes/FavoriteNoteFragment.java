@@ -70,7 +70,7 @@ public class FavoriteNoteFragment extends Fragment implements NotesClickListener
         }
 
         // initialize the favoriteNotesAdapter
-        favoriteNotesAdapter = new FavoriteNotesAdapter(getContext(), myHelper.reverseListOrder((ArrayList<Notes>) listOfFilteredNotes), this);
+        favoriteNotesAdapter = new FavoriteNotesAdapter(getContext(), myHelper.reverseListOrder((ArrayList<Notes>) listOfFilteredNotes), this,myHelper);
 
         // set recyclerview layout example - linear or grid
         binding.recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
