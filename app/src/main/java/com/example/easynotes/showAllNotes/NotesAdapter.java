@@ -77,16 +77,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return new ViewHolder(view);
     }
 
-    // reverse string for show last added value to show in first
-    private ArrayList<Notes> reverseListOrder(ArrayList<Notes> notes) {
-        Iterator<Notes> it = notes.iterator();
-        ArrayList<Notes> destination = new ArrayList<>();
-        while (it.hasNext()) {
-            destination.add(0, it.next());
-            it.remove();
-        }
-        return destination;
-    }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // If the position is 0 set the add note item
@@ -115,34 +106,20 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     }
 
 
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                String charString = charSequence.toString();
-                if (charString.isEmpty()) {
-                    notesFilterList = notesList;
-                } else {
-                    ArrayList<Notes> filteredList = new ArrayList<>();
-                    for (Notes item : notesList) {
-                        if (item.getTitle().toLowerCase().contains(charString.toLowerCase()) || item.getNote().toLowerCase().contains(charString.toLowerCase()) || item.getDate().toLowerCase().contains(charString.toLowerCase()) || item.getMonth().toLowerCase().contains(charString.toLowerCase()) || item.getYear().toLowerCase().contains(charString.toLowerCase())) {
-                            filteredList.add(item);
-                        }
-                    }
-                    notesFilterList = filteredList;
-                }
+    ArrayList<Notes> getFilter(String string){
 
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = notesFilterList;
-                return filterResults;
-            }
+         notesFilterList = new ArrayList<>();
 
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                notesFilterList = (ArrayList<Notes>) filterResults.values;
-                notifyDataSetChanged();
-            }
-        };
+         for(Notes notes: notesList){
+             if (notes.getTitle().toLowerCase().contains(string.toLowerCase())
+                     || notes.getNote().toLowerCase().contains(string.toLowerCase())
+                     || notes.getDate().toLowerCase().contains(string.toLowerCase())
+                     || notes.getMonth().toLowerCase().contains(string.toLowerCase())
+                     || notes.getYear().toLowerCase().contains(string.toLowerCase())) {
+                 notesFilterList.add(notes);
+             }
+         }
+         return notesFilterList;
     }
 
 
@@ -182,15 +159,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return notesFilterList.size() + 1;
     }
 
-
     @Override
     public int getItemViewType(int position) {
-
         if (position == 0)
             return 0;
         else {
             return 1;
         }
     }
+
 
 }

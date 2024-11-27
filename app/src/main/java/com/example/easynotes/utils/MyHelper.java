@@ -8,7 +8,6 @@ import android.net.Uri;
 import com.example.easynotes.dataClass.Notes;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 
 public class MyHelper {
@@ -19,17 +18,29 @@ public class MyHelper {
         this.context = context;
     }
 
-
+    // filter all Favorite notes
+    public ArrayList<Notes> filterAllFavoriteNote(ArrayList<Notes> notesList) {
+        ArrayList<Notes> notesFilterList = new ArrayList<>();
+        for (Notes notes : notesList) {
+            if (notes.isFavorite()) {
+                notesFilterList.add(notes);
+            }
+        }
+        return notesFilterList;
+    }
 
     // reverse string for show last added value to show in first
     public ArrayList<Notes> reverseListOrder(ArrayList<Notes> notes) {
-        Iterator<Notes> it = notes.iterator();
-        ArrayList<Notes> destination = new ArrayList<>();
-        while (it.hasNext()) {
-            destination.add(0, it.next());
-            it.remove();
+        ArrayList<Notes> notesArrayList = new ArrayList<>();
+
+        int size = notes.size() - 1;
+        int i = 0;
+
+        while (size >= i) {
+            notesArrayList.add(notes.get(size));
+            size--;
         }
-        return destination;
+        return notesArrayList;
     }
 
     // rate us app
@@ -62,14 +73,11 @@ public class MyHelper {
     public void goToInstagram() {
         Uri uri = Uri.parse("http://instagram.com/_u/aditya_kumar4");
         Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
-
         likeIng.setPackage("com.instagram.android");
-
         try {
             context.startActivity(likeIng);
         } catch (ActivityNotFoundException e) {
-            context.startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://instagram.com/aditya_kumar4")));
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/aditya_kumar4")));
         }
     }
 
@@ -77,7 +85,6 @@ public class MyHelper {
     public void dialContactPhone(String phoneNumber) {
         context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
     }
-
 
     // get months
     public String getMonths(String month) {

@@ -61,13 +61,14 @@ public class FavoriteNoteFragment extends Fragment implements NotesClickListener
         binding.recyclerView.setVisibility(View.VISIBLE);
 
         // filter all Favorite notes and save in a new list
-        List<Notes> listOfFilteredNotes = notesList.stream().filter(filteringAll(true)).collect(Collectors.toList());
+        List<Notes> listOfFilteredNotes = myHelper.filterAllFavoriteNote(notesList);
         // check if list is empty then show empty list image
         if (listOfFilteredNotes.isEmpty()) {
             binding.emptyList.setVisibility(View.VISIBLE);
             binding.recyclerView.setVisibility(View.GONE);
             Glide.with(this).load(R.drawable.empty_list).into(binding.emptyList);
         }
+
         // initialize the favoriteNotesAdapter
         favoriteNotesAdapter = new FavoriteNotesAdapter(getContext(), myHelper.reverseListOrder((ArrayList<Notes>) listOfFilteredNotes), this);
 
@@ -80,16 +81,15 @@ public class FavoriteNoteFragment extends Fragment implements NotesClickListener
         return binding.getRoot();
     }
 
-    // filter all Favorite notes
-    public static Predicate<Notes> filteringAll(boolean isFavorite) {
-        return p -> (p.isFavorite() && isFavorite);
-    }
+
+
+
 
     private void fetchNotes() {
         // fetch notes from sqlHelper class
         notesList = sqlHelper.getNotes();
 
-        List<Notes> listOfFilteredNotes = notesList.stream().filter(filteringAll(true)).collect(Collectors.toList());
+        List<Notes> listOfFilteredNotes = myHelper.filterAllFavoriteNote(notesList);
         if (listOfFilteredNotes.isEmpty()) {
             binding.emptyList.setVisibility(View.VISIBLE);
             binding.recyclerView.setVisibility(View.GONE);
@@ -110,7 +110,7 @@ public class FavoriteNoteFragment extends Fragment implements NotesClickListener
         // this observe the current search text
         notesViewModel.getSearchNoteText().observe(requireActivity(), c -> {
             // filter notes in adapter
-            favoriteNotesAdapter.getFilter().filter(c.toString());
+            favoriteNotesAdapter.getFilter(c.toString());
             favoriteNotesAdapter.notifyDataSetChanged();
         });
     }

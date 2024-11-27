@@ -207,7 +207,9 @@ public class AddUpdateNotesActivity extends AppCompatActivity {
         } else if (intent.hasExtra("notes")) {
             if (Objects.equals(notes.getTitle(), title) && Objects.equals(notes.getNote(), note)) {
                 // No changes, just finish the activity
-                finish();
+              //  finish();
+                AddUpdateNotesActivity.super.onBackPressed();
+
             } else {
                 // There are new changes, ask the user if they want to save
                 showSaveChangesDialog();
@@ -245,7 +247,8 @@ public class AddUpdateNotesActivity extends AppCompatActivity {
                                 sqlHelper.addNotes(title, note, currentHour, currentMinute, date, month, year);
                             }
                             dialogInterface.dismiss();
-                            finish(); // Finish the activity after saving the note
+                            AddUpdateNotesActivity.super.onBackPressed();
+                            //finish(); // Finish the activity after saving the note
                         }
                     }
                 })
@@ -254,7 +257,8 @@ public class AddUpdateNotesActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // when user click on cancel button
                         dialogInterface.dismiss();
-                        finish(); // Finish the activity if cancel is pressed
+                        AddUpdateNotesActivity.super.onBackPressed();
+                        // finish(); // Finish the activity if cancel is pressed
                     }
                 });
 

@@ -87,7 +87,7 @@ public class NotesFragment extends Fragment implements NotesClickListener {
         // filter note using search
         // this observe the current search text
         notesViewModel.getSearchNoteText().observe(requireActivity(), c -> {
-            notesAdapter.getFilter().filter(c.toString());
+            notesAdapter.getFilter(c.toString());
             notesAdapter.notifyDataSetChanged();
         });
 
