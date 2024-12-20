@@ -43,7 +43,7 @@ public class SettingActivity extends AppCompatActivity {
         final SharedPreferences.Editor editor = sharedPreferences.edit();
 
         // get day and night mode theme
-        isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", true);
+        isDarkModeOn = sharedPreferences.getBoolean("isDayModeOn", true);
 
         // select switch button theme mode
         binding.appTheme.setChecked(!isDarkModeOn);
@@ -61,13 +61,13 @@ public class SettingActivity extends AppCompatActivity {
         binding.appTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 // save day and night mode theme
-                editor.putBoolean("isDarkModeOn", false);
+                editor.putBoolean("isDayModeOn", false);
                 notesViewModel.selectTheme(false);
                 editor.apply();
 
             } else {
                 // save day and night mode theme
-                editor.putBoolean("isDarkModeOn", true);
+                editor.putBoolean("isDayModeOn", true);
                 notesViewModel.selectTheme(true);
                 editor.apply();
 

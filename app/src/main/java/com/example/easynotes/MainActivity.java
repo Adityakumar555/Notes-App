@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     public int selectedTabNumber = 1;
 
     NotesViewModel notesViewModel;
-    boolean isDarkModeOn;
+    boolean isDayModeOn;
     TextView selectedTextView;
     TextView nonSelectedTab1;
 
@@ -43,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
         // sharedPreferences for current theme
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         // get day and night mode theme
-        isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", true);
+        isDayModeOn = sharedPreferences.getBoolean("isDayModeOn", true);
 
-        // if isDarkModeOn is true
-        if (isDarkModeOn) {
+        // if isDayModeOn is true
+        if (isDayModeOn) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-        // if isDarkModeOn is false
+        // if isDayModeOn is false
         else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
