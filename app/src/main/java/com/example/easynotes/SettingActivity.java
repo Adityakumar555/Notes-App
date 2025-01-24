@@ -40,7 +40,7 @@ public class SettingActivity extends AppCompatActivity {
 
         // sharedPreferences for current theme
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
+         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         // get day and night mode theme
         isDarkModeOn = sharedPreferences.getBoolean("isDayModeOn", true);
